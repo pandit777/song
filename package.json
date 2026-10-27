@@ -40,7 +40,8 @@
     "prerelease": "bun run test",
     "release": "bun run changelogen --release --push",
     "spell-check": "cspell .",
-    "postinstall": "npx simple-git-hooks"
+    "postinstall": "npx simple-git-hooks",
+    "vercel-build": "bun run build"
   },
   "simple-git-hooks": {
     "pre-commit": "bun run lint && bun run format",
