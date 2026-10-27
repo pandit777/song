@@ -1,8 +1,9 @@
 import { AlbumController, ArtistController, SearchController, SongController } from '#modules/index'
 import { PlaylistController } from '#modules/playlists/controllers'
+import { handle } from 'hono/vercel'
 import { App } from './app'
 
-const app = new App([
+const appInstance = new App([
   new SearchController(),
   new SongController(),
   new AlbumController(),
@@ -10,4 +11,5 @@ const app = new App([
   new PlaylistController()
 ]).getApp()
 
-export default app
+// Vercel Serverless environment के लिए Hono instance को handle() में रैप करके एक्सपोर्ट करें
+export default handle(appInstance)
