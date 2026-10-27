@@ -7,7 +7,7 @@ import { Home } from './pages/home'
 import type { Routes } from '#common/types'
 import type { HTTPException } from 'hono/http-exception'
 
-// कंट्रोलर आयात करें (मूल server.ts से स्थानांतरित)
+// कंट्रोलर आयात करें
 import { AlbumController, ArtistController, SearchController, SongController } from '#modules/index'
 import { PlaylistController } from '#modules/playlists/controllers'
 
@@ -27,7 +27,8 @@ export class App {
   private initializeRoutes(routes: Routes[]) {
     routes.forEach((route) => {
       route.initRoutes()
-      this.app.route('/api', route.controller)
+      // Vercel पर /api प्रीफ़िक्स हटा दिया जाता है, इसलिए सीधे रूट पर माउंट करें
+      this.app.route('/', route.controller)
     })
 
     this.app.route('/', Home)
