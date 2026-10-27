@@ -1,4 +1,5 @@
 import { OpenAPIHono } from '@hono/zod-openapi'
+import { Hono } from 'hono'
 import { apiReference } from '@scalar/hono-api-reference'
 import { cors } from 'hono/cors'
 import { logger } from 'hono/logger'
@@ -27,7 +28,6 @@ export class App {
   private initializeRoutes(routes: Routes[]) {
     routes.forEach((route) => {
       route.initRoutes()
-      // रूट प्रीफ़िक्स वापस /api पर सेट करें, ताकि /api/search जैसे अनुरोध मेल खा सकें
       this.app.route('/api', route.controller)
     })
 
@@ -106,6 +106,11 @@ const appInstance = new App([
   new AlbumController(),
   new ArtistController(),
   new PlaylistController()
-]).getApp()
+]).getApp() // यह OpenAPIHono इंस्टेंस है
 
-export default appInstance
+// एक सामान्य Hono ऐप बनाएँ और OpenAPIHono को उस पर माउंट करें
+const mainApp = new Hono()
+mainApp.route('/', appInstance)
+
+// Vercel को सामान्य Hono इंस्टेंस चाहिए, इसलिए mainApp को एक्सपोर्ट करें
+export default mainApp
