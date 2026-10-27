@@ -1,11 +1,6 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": "hono",
-  "functions": {
-    "api/**/*.[jt]s": {
-      "runtime": "nodejs20.x"
-    }
-  },
   "rewrites": [
     { 
       "source": "/(.*)", 
