@@ -1,9 +1,9 @@
 {
-  "$schema": "https://vercel.sh",
+  "$schema": "https://openapi.vercel.sh/vercel.json",
   "rewrites": [
     { 
       "source": "/(.*)", 
-      "destination": "/api/server.js" 
+      "destination": "/dist/server.js" 
     }
   ],
   "regions": ["bom1"],
