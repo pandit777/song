@@ -7,6 +7,10 @@ import { Home } from './pages/home'
 import type { Routes } from '#common/types'
 import type { HTTPException } from 'hono/http-exception'
 
+// कंट्रोलर आयात करें (मूल server.ts से स्थानांतरित)
+import { AlbumController, ArtistController, SearchController, SongController } from '#modules/index'
+import { PlaylistController } from '#modules/playlists/controllers'
+
 export class App {
   private app: OpenAPIHono
 
@@ -93,3 +97,14 @@ export class App {
     return this.app
   }
 }
+
+// ============ Vercel के लिए डिफ़ॉल्ट निर्यात ============
+const appInstance = new App([
+  new SearchController(),
+  new SongController(),
+  new AlbumController(),
+  new ArtistController(),
+  new PlaylistController()
+]).getApp()
+
+export default appInstance
