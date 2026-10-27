@@ -27,8 +27,8 @@ export class App {
   private initializeRoutes(routes: Routes[]) {
     routes.forEach((route) => {
       route.initRoutes()
-      // Vercel पर /api प्रीफ़िक्स हटा दिया जाता है, इसलिए सीधे रूट पर माउंट करें
-      this.app.route('/', route.controller)
+      // रूट प्रीफ़िक्स वापस /api पर सेट करें, ताकि /api/search जैसे अनुरोध मेल खा सकें
+      this.app.route('/api', route.controller)
     })
 
     this.app.route('/', Home)
